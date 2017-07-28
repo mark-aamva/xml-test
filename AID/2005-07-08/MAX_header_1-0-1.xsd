@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:maxh="http://www.AAMVA.org/MAX" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.AAMVA.org/MAX" elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xsd:element name="Header" type="maxh:HeaderType">
+		<xsd:annotation>
+			<xsd:documentation>The control information for AAMVA messages</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="HeaderType">
+		<xsd:annotation>
+			<xsd:documentation>The control information for AAMVA messages</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ApplicationID">
+				<xsd:annotation>
+					<xsd:documentation>An identifier that indicates which system the transaction is used in.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:positiveInteger">
+						<xsd:minInclusive value="01"/>
+						<xsd:maxInclusive value="99"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="MessageTypeID">
+				<xsd:annotation>
+					<xsd:documentation>The Message Type uniquely identifies the kind of message within the given application.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="2"/>
+						<xsd:maxLength value="3"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="MessageDestination" type="maxh:NetworkAddressType">
+				<xsd:annotation>
+					<xsd:documentation>The destination of a message.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MessageID">
+				<xsd:annotation>
+					<xsd:documentation>The data needed to uniquely identify a message.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="MessageOriginator" type="maxh:NetworkAddressType">
+							<xsd:annotation>
+								<xsd:documentation>The origin of a message.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="MessageDate" type="xsd:date" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>The date a message is sent. This should also be the date the message is logged as being sent. The element is required on a message being sent over the network. It is marked as optional to allow an application to pass the message without the element to a network interface which will fill this element.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="MessageTime" type="xsd:time" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>The time a message is sent, or the time the message is logged as being sent. The element is required on a message being sent over the network. It is marked as optional to allow an application to pass the message without the element to a network interface which will fill this element. (The time zone is not included).</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="MessageMilliSecondTime" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>The sub-second within the time, when a message is sent.  The sub-second is recorded as a fraction of a second, i.e. half a second is recorded as 5000. The element is required on a message being sent over the network. It is marked as optional to allow an application to pass the initial message without the element to a network interface which will fill this element. </xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:nonNegativeInteger">
+									<xsd:totalDigits value="4"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="MessageSequenceID" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>A sequential number used as a tie breaker for duplicate date/times. The element is required on a message being sent over the network. It is marked as optional to allow an application to pass the message without the element to a network interface which will fill this element.</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:nonNegativeInteger">
+									<xsd:totalDigits value="6"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="TransactionID" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The data needed to identify a transaction that contains one or more messages. The value of this element (on both the initial message and on the response message(s)) is the same as the TransactionID (and MessageID) on the initial message in a transaction. The element is required on a message being sent over the network. It is marked as optional to allow an application to pass the initial message without this element to a network interface which will fill the element.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="TransactionOriginator" type="maxh:NetworkAddressType">
+							<xsd:annotation>
+								<xsd:documentation>The origin of a transaction.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="TransactionDate" type="xsd:date">
+							<xsd:annotation>
+								<xsd:documentation>The date a transaction is started.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="TransactionTime" type="xsd:time">
+							<xsd:annotation>
+								<xsd:documentation>The time a transaction is started. (The time zone is not included).</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="TransactionMilliSecondTime">
+							<xsd:annotation>
+								<xsd:documentation>The sub-second within the time, when a transaction is started. The sub-second is recorded as a fraction of a second, i.e. half a second is recorded as 5000.</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:nonNegativeInteger">
+									<xsd:totalDigits value="4"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="TransactionSequenceID">
+							<xsd:annotation>
+								<xsd:documentation>A sequential number used as a tie breaker for duplicate date/times.</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:nonNegativeInteger">
+									<xsd:totalDigits value="6"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="NetworkIDCode">
+				<xsd:annotation>
+					<xsd:documentation>A code identifying which network the message is using. i.e. AAMVAnet NCS, Internet, etc.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="NC">
+							<xsd:annotation>
+								<xsd:documentation>NCS</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="N2">
+							<xsd:annotation>
+								<xsd:documentation>NCS 2</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="IN">
+							<xsd:annotation>
+								<xsd:documentation>Internet</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="EnvironmentCode">
+				<xsd:annotation>
+					<xsd:documentation>A code indicating the type of environment the transaction is running in. i.e. Development, Test or Production.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="P">
+							<xsd:annotation>
+								<xsd:documentation>Production</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="T">
+							<xsd:annotation>
+								<xsd:documentation>Test</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="D">
+							<xsd:annotation>
+								<xsd:documentation>Development</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Exception" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Details about any problems or anomalies.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ExceptionTypeCode">
+							<xsd:annotation>
+								<xsd:documentation>A code indicating the type of process, where the exception was encountered. i.e. The Network, the Interface with the network, or the Application.</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:enumeration value="N">
+										<xsd:annotation>
+											<xsd:documentation>Network</xsd:documentation>
+										</xsd:annotation>
+									</xsd:enumeration>
+									<xsd:enumeration value="I">
+										<xsd:annotation>
+											<xsd:documentation>Network Interface</xsd:documentation>
+										</xsd:annotation>
+									</xsd:enumeration>
+									<xsd:enumeration value="A">
+										<xsd:annotation>
+											<xsd:documentation>Application</xsd:documentation>
+										</xsd:annotation>
+									</xsd:enumeration>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="ExceptionFatalIndicator">
+							<xsd:annotation>
+								<xsd:documentation>An indicator used to show if the exception is a fatal error or a warning. A fatal error prevents processing of the message. A warning exception describes a problem on a successfully processed message. </xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:boolean"/>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="ExceptionID">
+							<xsd:annotation>
+								<xsd:documentation>A code for identifying an individual problem. Each application defines its own codes.</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string"/>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="ExceptionCategoryCode" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>A code indicating the nature of the exception. i.e. System Error, Required element missing, Content of element invalid, Element cross-check error, Record not found, Cross-check elements retrieved.</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:enumeration value="0">
+										<xsd:annotation>
+											<xsd:documentation>System Error</xsd:documentation>
+										</xsd:annotation>
+									</xsd:enumeration>
+									<xsd:enumeration value="1">
+										<xsd:annotation>
+											<xsd:documentation>Required element missing</xsd:documentation>
+										</xsd:annotation>
+									</xsd:enumeration>
+									<xsd:enumeration value="2">
+										<xsd:annotation>
+											<xsd:documentation>Content of element invalid</xsd:documentation>
+										</xsd:annotation>
+									</xsd:enumeration>
+									<xsd:enumeration value="3">
+										<xsd:annotation>
+											<xsd:documentation>Element cross-check error</xsd:documentation>
+										</xsd:annotation>
+									</xsd:enumeration>
+									<xsd:enumeration value="4">
+										<xsd:annotation>
+											<xsd:documentation>Record not found</xsd:documentation>
+										</xsd:annotation>
+									</xsd:enumeration>
+									<xsd:enumeration value="5">
+										<xsd:annotation>
+											<xsd:documentation>Cross-check elements retrieved</xsd:documentation>
+										</xsd:annotation>
+									</xsd:enumeration>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="ExceptionText" type="xsd:string" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>A human readable explanation of the exception.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="ExceptionElement" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>The data that identifies an element that caused the error.</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="ExceptionElementTagText" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>The tag of the element identified as being responsible for the error report. (The greater and less than characters are not included).</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="ExceptionElementOccurrenceID" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>When an erroneous element is one of many, this is a pointer to the occurrence in error. i.e. System Error, Required element missing, Content of element invalid, Element cross-check error, Record not found, Cross-check elements retrieved.</xsd:documentation>
+										</xsd:annotation>
+										<xsd:simpleType>
+											<xsd:restriction base="xsd:positiveInteger">
+												<xsd:totalDigits value="6"/>
+											</xsd:restriction>
+										</xsd:simpleType>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="ExceptionObjectText" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>A description of the object that was the cause of the error. e.g. a system, a file, a queue, etc.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="Version" default="1.0.0">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string"/>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+	<xsd:complexType name="NetworkAddressType">
+		<xsd:annotation>
+			<xsd:documentation>The generic addressing type</xsd:documentation>
+		</xsd:annotation>
+		<xsd:choice>
+			<xsd:sequence>
+				<xsd:element name="NetworkAddressText">
+					<xsd:annotation>
+						<xsd:documentation>An address of a site on the AAMVAnet NCS and NCS2 networks. Sometimes known as the Government Application Process (GAP) code.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:length value="3"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="RoutingAddressText" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>An address within a site on the network. Typically used to identify a computer or terminal at a site.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:length value="4"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:element name="URLID" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>A URL address of a site on the network.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IPID">
+				<xsd:annotation>
+					<xsd:documentation>An IP address of a site on the network.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string"/>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="HTTPUserID" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>An identifier of a HTTP user, using Basic Authentication or the Digest.  </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:choice>
+	</xsd:complexType>
+</xsd:schema>

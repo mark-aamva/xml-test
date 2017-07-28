@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<w:wantList w:release="3.0.2" xmlns:w="http://gjxdmtools.gtri.gatech.edu/wantList/1">
+  <w:element w:prefix="j" w:name="Person" w:isReference="false"/>
+  <w:element w:prefix="j" w:name="PersonAssignedIDDetails" w:isReference="false"/>
+  <w:element w:prefix="j" w:name="PersonBirthDate" w:isReference="false"/>
+  <w:element w:prefix="j" w:name="PersonSurName" w:isReference="false"/>
+  <w:type w:prefix="j" w:name="IDType" w:isRequested="true">
+    <w:elementInType w:prefix="j" w:name="ID" w:isReference="false"/>
+    <w:elementInType w:prefix="j" w:name="IDJurisdictionText" w:isReference="false"/>
+    <w:elementInType w:prefix="j" w:name="IDTypeText" w:isReference="false"/>
+  </w:type>
+  <w:type w:prefix="j" w:name="PersonAssignedIDDetailsType" w:isRequested="false">
+    <w:elementInType w:prefix="j" w:name="PersonStateID" w:isReference="false"/>
+  </w:type>
+  <w:type w:prefix="j" w:name="PersonNameType" w:isRequested="false">
+    <w:elementInType w:prefix="j" w:name="PersonSurName" w:isReference="false"/>
+  </w:type>
+  <w:type w:prefix="j" w:name="PersonType" w:isRequested="true">
+    <w:elementInType w:prefix="j" w:name="PersonAssignedIDDetails" w:isReference="false"/>
+    <w:elementInType w:prefix="j" w:name="PersonBirthDate" w:isReference="false"/>
+    <w:elementInType w:prefix="j" w:name="PersonName" w:isReference="false"/>
+  </w:type>
+</w:wantList>
