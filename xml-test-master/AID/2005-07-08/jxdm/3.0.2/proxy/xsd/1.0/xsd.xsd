@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.it.ojp.gov/jxdm/3.0.2/proxy/xsd/1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:j="http://www.it.ojp.gov/jxdm/3.0.2" xmlns:i="http://www.it.ojp.gov/jxdm/appinfo/1">
+  <xsd:annotation>
+    <xsd:documentation>Proxy types that carry dictionary metadata and have XML data type simple contents.</xsd:documentation>
+  </xsd:annotation>
+  <xsd:import namespace="http://www.it.ojp.gov/jxdm/3.0.2" schemaLocation="../../../jxdm.xsd">
+    <xsd:annotation>
+      <xsd:documentation>The Global Justice XML Data Model.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:import>
+  <xsd:import namespace="http://www.it.ojp.gov/jxdm/appinfo/1" schemaLocation="../../../../appinfo/1/appinfo.xsd">
+    <xsd:annotation>
+      <xsd:documentation>The appinfo for the schemas</xsd:documentation>
+    </xsd:annotation>
+  </xsd:import>
+  <xsd:complexType name="date">
+    <xsd:annotation>
+      <xsd:documentation>A proxy structure that represents a calendar date with the format CCYY-MM-DD.  This structure has an optional time zone qualifier designated by appending -hh:00, where hh represent the number of hours the local time zone is behind Coordinated Universal Time (UTC).</xsd:documentation>
+      <xsd:appinfo>
+        <i:info>
+          <i:base i:namespace="http://www.it.ojp.gov/jxdm/3.0.2" i:name="SuperType"/>
+        </i:info>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:date">
+        <xsd:attributeGroup ref="j:SuperTypeMetadata"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="string">
+    <xsd:annotation>
+      <xsd:documentation>A proxy structure that represents character strings in XML.</xsd:documentation>
+      <xsd:appinfo>
+        <i:info>
+          <i:base i:namespace="http://www.it.ojp.gov/jxdm/3.0.2" i:name="SuperType"/>
+        </i:info>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attributeGroup ref="j:SuperTypeMetadata"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:schema>

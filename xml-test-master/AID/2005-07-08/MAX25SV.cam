@@ -1,0 +1,40 @@
+<as:CAM
+ xmlns:as="http://www.oasis-open.org/committees/cam"
+ xmlns:camed="http://jcam.org.uk/editor"
+ xmlns:max="http://www.AAMVA.org"
+ xmlns:xml="http://www.w3.org/XML/1998/namespace" CAMlevel="1" version="1.0" cameditor="3.2.1">
+  <as:Header>
+    <as:Description>Generated for MAX25SV  by XSD 2 CAM generator v2.31</as:Description>
+    <as:Owner>To be Completed</as:Owner>
+    <as:Version>0.1</as:Version>
+    <as:DateTime>2016-10-28T12:07:46</as:DateTime>
+  </as:Header>
+  <as:AssemblyStructure>
+    <as:Structure taxonomy="XML" ID="MAX25SV" reference="">
+      <max:MAX25SV Version="%string%">
+        <max:Header>%type=HeaderType%</max:Header>
+        <max:Body />
+      </max:MAX25SV>
+    </as:Structure>
+  </as:AssemblyStructure>
+  <as:BusinessUseContext>
+    <as:Rules>
+      <as:default>
+        <as:context>
+          <as:constraint action="makeOptional(//max:MAX25SV/@Version)" />
+        </as:context>
+      </as:default>
+    </as:Rules>
+  </as:BusinessUseContext>
+  <as:Extension name="uk.org.jcam.camed.extensions.StructureAnnotations">
+    <camed:annotation item="//max:MAX25SV/max:Body">
+      <camed:documentation type="Definition">The body of the message, containing the application data</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="//max:MAX25SV/max:Header">
+      <camed:documentation type="Type">maxh:HeaderType</camed:documentation>
+    </camed:annotation>
+    <camed:annotation item="//max:MAX25SV/max:MAX25SV">
+      <camed:documentation type="Definition">The 'MAX' envelope that contains all the information for the AIDI (25) Verification and Status Request Message (SV)</camed:documentation>
+    </camed:annotation>
+  </as:Extension>
+</as:CAM>
