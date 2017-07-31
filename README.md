@@ -1,4 +1,3 @@
 # xml-test
 xml repository test
-change 2
-change 3
+change for rel 2
