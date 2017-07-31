@@ -37,7 +37,7 @@ C:\DOCUME~1\mpritchard\MYDOCU~1\AAMVAD~1\XML\AID\25_SV_1-0-0.xsd" max:Version="1
 	<max:Body>
 		<j:Person>
 			<j:PersonName>
-				<j:PersonSurName>PRITCHARD change2</j:PersonSurName>
+				<j:PersonSurName>PRITCHARD change2 </j:PersonSurName>
 			</j:PersonName>
 			<j:PersonBirthDate>1967-08-13</j:PersonBirthDate>
 			<j:PersonAssignedIDDetails>
